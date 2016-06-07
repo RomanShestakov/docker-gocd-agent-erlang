@@ -34,14 +34,14 @@ ENV GO_SERVER=localhost \
     AGENT_HOSTNAME="" \
     DOCKER_GID_ON_HOST=""
 
-# add erlang
-RUN apt-get update && apt-get -y upgrade && apt-get -y install wget
+# # add erlang
+# RUN apt-get update && apt-get -y upgrade && apt-get -y install wget
 
-RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
-    dpkg -i erlang-solutions_1.0_all.deb
+# RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
+#     dpkg -i erlang-solutions_1.0_all.deb
 
-RUN apt-get update && apt-get -y install erlang erlang-base-hipe build-essential \
-  autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
+# RUN apt-get update && apt-get -y install erlang erlang-base-hipe build-essential \
+#   autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
 
 
 # v16
