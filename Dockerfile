@@ -37,15 +37,15 @@ ENV GO_SERVER=localhost \
 # add erlang
 RUN apt-get update && apt-get -y upgrade && apt-get -y install wget
 
-# RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
-#     dpkg -i erlang-solutions_1.0_all.deb
+RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
+    dpkg -i erlang-solutions_1.0_all.deb
 
-# RUN apt-get update && apt-get -y install erlang erlang-base-hipe build-essential \
-#   autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
+RUN apt-get update && apt-get -y install erlang erlang-base-hipe build-essential \
+  autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
 
-# Erlang
-RUN echo -e "deb http://packages.erlang-solutions.com/debian jessie contrib" | tee /etc/apt/sources.list.d/erlang-solutions.list
-RUN wget -qO - http://packages.erlang-solutions.com/debian/erlang_solutions.asc | apt-key add -
+# # Erlang
+# RUN echo -e "deb http://packages.erlang-solutions.com/debian jessie contrib" | tee /etc/apt/sources.list.d/erlang-solutions.list
+# RUN wget -qO - http://packages.erlang-solutions.com/debian/erlang_solutions.asc | apt-key add -
 
 # Update packages
 RUN apt-get update
