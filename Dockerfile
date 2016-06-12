@@ -9,6 +9,8 @@ ENV GO_VERSION=16.5.0-3305 \
     GROUP_NAME=go \
     GROUP_ID=999
 
+ENV ERLANG_VERSION 17.5.3
+
 # install go agent
 RUN groupadd -r -g $GROUP_ID $GROUP_NAME \
     && useradd -r -g $GROUP_NAME -u $USER_ID -d /var/go $USER_NAME \
@@ -35,13 +37,16 @@ ENV GO_SERVER=localhost \
     DOCKER_GID_ON_HOST=""
 
 # add erlang
-RUN apt-get update && apt-get -y upgrade && apt-get -y install wget
+RUN \
+  apt-get update && \
+  apt-get --fix-missing -y install build-essential autoconf libncurses5-dev libwxgtk2.8-dev \
+  libgl1-mesa-dev libglu1-mesa-dev libpng3 libssh-dev unixodbc-dev openssl fop xsltproc wget
 
 RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
     dpkg -i erlang-solutions_1.0_all.deb
 
-RUN apt-get update && apt-get -y install erlang erlang-base-hipe build-essential \
-  autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
+RUN apt-get update
+RUN apt-get -y install erlang=1:$ERLANG_VERSION
 
 # v16
 COPY ./docker-entrypoint.sh /
