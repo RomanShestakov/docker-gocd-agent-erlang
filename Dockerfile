@@ -39,8 +39,9 @@ ENV GO_SERVER=localhost \
 # add erlang
 RUN \
   apt-get update && \
-  apt-get --fix-missing -y install build-essential autoconf libncurses5-dev libwxgtk2.8-dev \
-  libgl1-mesa-dev libglu1-mesa-dev libpng3 libssh-dev unixodbc-dev openssl fop xsltproc wget
+  apt-get --fix-missing -y install build-essential autoconf libncurses5-dev \
+  libgl1-mesa-dev libglu1-mesa-dev libpng3 libssh-dev unixodbc-dev openssl fop xsltproc \
+  libmozjs185-1.0 libmozjs185-dev libcurl4-openssl-dev libicu-dev wget curl
 
 RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && \
     dpkg -i erlang-solutions_1.0_all.deb
