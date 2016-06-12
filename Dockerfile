@@ -47,7 +47,7 @@ RUN cd /tmp; wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all
     dpkg -i erlang-solutions_1.0_all.deb
 
 RUN apt-get update
-RUN apt-get -y install erlang=1:$ERLANG_VERSION
+RUN apt-get -y install esl-erlang=1:$ERLANG_VERSION
 
 # v16
 COPY ./docker-entrypoint.sh /
