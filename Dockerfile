@@ -9,7 +9,7 @@ ENV GO_VERSION=16.5.0-3305 \
     GROUP_NAME=go \
     GROUP_ID=999
 
-ENV ERLANG_VERSION 17.5.3
+ENV ERLANG_VERSION=17.5.3
 
 # install go agent
 RUN groupadd -r -g $GROUP_ID $GROUP_NAME \
