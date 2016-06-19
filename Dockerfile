@@ -1,6 +1,21 @@
-FROM travix/base-debian-git-jre8:latest
+FROM phusion/baseimage:0.9.18
 
 MAINTAINER rshestakov
+
+# install dependencies
+RUN apt-get update \
+    && apt-get install -y \
+        git \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && git config --global core.preloadindex true \
+    && git config --global gc.auto 256
+
+# install dependencies
+#RUN echo "deb http://http.debian.net/debian jessie-backports main" | tee /etc/apt/sources.list.d/jessie-backports.list \
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y openjdk-7-jre-headless acl
 
 # build time environment variables
 ENV GO_VERSION=16.5.0-3305 \
@@ -22,8 +37,8 @@ RUN groupadd -r -g $GROUP_ID $GROUP_NAME \
     && sed -i -e "s/DAEMON=Y/DAEMON=N/" /etc/default/go-agent \
     && echo "export PATH=$PATH" | tee -a /var/go/.profile \
     && chown -R ${USER_NAME}:${GROUP_NAME} /var/lib/go-agent \
-    && chown -R ${USER_NAME}:${GROUP_NAME} /var/go \
-    && groupmod -g 200 ssh
+    && chown -R ${USER_NAME}:${GROUP_NAME} /var/go
+    #&& groupmod -g 200 ssh
 
 # runtime environment variables
 ENV GO_SERVER=localhost \

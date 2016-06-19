@@ -46,9 +46,9 @@ then
 
 fi
 
-# update config to point to correct go.cd server hostname and port
-sed -i -e "s/GO_SERVER=127.0.0.1/GO_SERVER=${GO_SERVER}/" /etc/default/go-agent;
-sed -i -e "s/GO_SERVER_PORT=8153/GO_SERVER_PORT=${GO_SERVER_PORT}/" /etc/default/go-agent;
+# # update config to point to correct go.cd server hostname and port
+# sed -i -e "s/GO_SERVER=127.0.0.1/GO_SERVER=${GO_SERVER}/" /etc/default/go-agent;
+# sed -i -e "s/GO_SERVER_PORT=8153/GO_SERVER_PORT=${GO_SERVER_PORT}/" /etc/default/go-agent;
 
 # autoregister agent with server
 if [ -n "$AGENT_KEY" ];
@@ -71,7 +71,7 @@ until curl -s -o /dev/null "http://${GO_SERVER}:${GO_SERVER_PORT}";
 done;
 
 # start agent as go user
-(/bin/su - ${USER_NAME} -c "AGENT_MEM=$AGENT_MEM AGENT_MAX_MEM=$AGENT_MAX_MEM /usr/share/go-agent/agent.sh" &);
+sudo -u ${USER_NAME} AGENT_MEM=$AGENT_MEM AGENT_MAX_MEM=$AGENT_MAX_MEM /usr/share/go-agent/agent.sh &
 
 # wait for agent to start logging
 while [ ! -f /var/log/go-agent/go-agent-bootstrapper.log ];
@@ -79,4 +79,4 @@ while [ ! -f /var/log/go-agent/go-agent-bootstrapper.log ];
 done;
 
 # tail logs, to be replaced with logs that automatically go to stdout/stderr so go.cd crashing will crash the container
-/bin/su - ${USER_NAME} -c "exec tail -F /var/log/go-agent/*"
+exec tail -F /var/log/go-agent/*
