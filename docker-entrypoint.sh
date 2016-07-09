@@ -46,9 +46,9 @@ then
 
 fi
 
-# # update config to point to correct go.cd server hostname and port
-# sed -i -e "s/GO_SERVER=127.0.0.1/GO_SERVER=${GO_SERVER}/" /etc/default/go-agent;
-# sed -i -e "s/GO_SERVER_PORT=8153/GO_SERVER_PORT=${GO_SERVER_PORT}/" /etc/default/go-agent;
+# update config to point to correct go.cd server hostname and port
+sed -i -e "s/GO_SERVER=127.0.0.1/GO_SERVER=${GO_SERVER}/" /etc/default/go-agent;
+sed -i -e "s/GO_SERVER_PORT=8153/GO_SERVER_PORT=${GO_SERVER_PORT}/" /etc/default/go-agent;
 
 # autoregister agent with server
 if [ -n "$AGENT_KEY" ];
